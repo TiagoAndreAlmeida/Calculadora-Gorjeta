@@ -14,6 +14,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Double gorjetaValue = 0.0;
     private TextInputEditText editValor, editGorjeta, editTotal;
     private SeekBar seekBar;
     private TextView textPct;
@@ -29,27 +30,28 @@ public class MainActivity extends AppCompatActivity {
         seekBar = findViewById(R.id.seekPct);
         textPct = findViewById(R.id.textPct);
 
-//        editTotal.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                textPct.setText(s.toString());
-//            }
-//        });
+        editGorjeta.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                calcGorjeta();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                textPct.setText(s.toString());
+            }
+        });
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                textPct.setText(progress+" %");
+                textPct.setText(progress+"%");
+                calcPct();
             }
 
             @Override
@@ -62,5 +64,17 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void calcPct() {
+        Double _editValue = Double.parseDouble(editValor.getText().toString());
+        Double valorGorjeta = (_editValue * seekBar.getProgress()) / 100;
+        editGorjeta.setText(valorGorjeta+"");
+    }
+
+    private void calcGorjeta() {
+        // 1 - verificar se o valor final e mair que zero
+        // 2 - validar se o valor digitado ne é maior que o valor final
+        // 3 - ajustar o progress do seekbar de acordo com o calculo
     }
 }
