@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private Double gorjetaValor, valor = 0.0;
     private TextInputEditText editValor, editGorjeta, editTotal;
     private SeekBar seekBar;
-    private TextView textPct;
+    private TextView textPct, textTotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +27,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         editGorjeta = findViewById(R.id.editGorjeta);
-        editTotal = findViewById(R.id.editTotal);
         editValor = findViewById(R.id.editValor);
         seekBar = findViewById(R.id.seekPct);
         textPct = findViewById(R.id.textPct);
+        textTotal = findViewById(R.id.totalText);
 
         editValor.addTextChangedListener(new TextWatcher() {
             @Override
@@ -116,14 +116,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void calcPct() {
-//        Double valorGorjeta = (valor * seekBar.getProgress()) / 100;
-//        editGorjeta.setText(valorGorjeta+"");
         if(gorjetaValor > 0) {
-            Double pctValor = (valor / gorjetaValor) * 100;
-            Integer intpct = Math.toIntExact(Math.round(pctValor));
-            seekBar.setProgress(intpct);
+            Double pctValor = (100 * gorjetaValor) / 100;
+            Integer progress = (int) Math.round(pctValor);
+            seekBar.setProgress(progress);
+            calcTotal();
         }
     }
 
@@ -131,11 +129,17 @@ public class MainActivity extends AppCompatActivity {
         if(valor > 0) {
             Double gorjeta = (valor * seekBar.getProgress()) / 100;
             editGorjeta.setText(gorjeta+"");
+            calcTotal();
         }
     }
 
     private void disableSeek() {
         seekBar.setProgress(0);
         seekBar.setEnabled(false);
+    }
+
+    private void calcTotal() {
+        Double _total = valor + gorjetaValor;
+        textTotal.setText("R$ "+_total);
     }
 }

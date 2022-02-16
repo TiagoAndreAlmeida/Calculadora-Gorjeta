@@ -93,21 +93,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <TextView
+        android:id="@+id/totalText"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="R$ 0.00"
+        android:textAlignment="viewStart"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTotal"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="R$0.00"
-            android:inputType="numberDecimal" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
